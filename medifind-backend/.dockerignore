@@ -1,0 +1,14 @@
+.git
+.github
+target/
+**/target/
+node_modules/
+**/node_modules/
+.idea/
+.vscode/
+*.log
+logs/
+.env
+.env.*
+Dockerfile
+.dockerignore

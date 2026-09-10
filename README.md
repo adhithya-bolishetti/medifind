@@ -13,7 +13,6 @@ medifind/
 ├── medifind-backend/   # The monolithic Spring Boot application
 ├── frontend/           # React application built with Vite and Material UI
 ├── database/           # Database scripts and seed data
-├── RAILWAY_DEPLOYMENT.md # Deployment instructions
 └── README.md
 ```
 
@@ -114,4 +113,4 @@ Alternatively, you can run the `MediFindApplication.java` class directly from yo
 
 ## Deployment
 
-This application natively supports deployment to **Railway** without Docker. Refer to [RAILWAY_DEPLOYMENT.md](RAILWAY_DEPLOYMENT.md) for full deployment instructions.
+This application natively supports deployment to **Render**. A `render.yaml` file is provided for easy deployment using Render's Infrastructure as Code (IaC) features.

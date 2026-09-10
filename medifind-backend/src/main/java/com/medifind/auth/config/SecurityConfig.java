@@ -60,10 +60,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         
-        // Merge allowed origins from properties with required origins
+        // Use allowed origins from properties
         java.util.Set<String> origins = new java.util.HashSet<>(List.of(allowedOrigins.split(",")));
-        origins.add("http://localhost:5173");
-        origins.add("https://medifind-five.vercel.app");
         configuration.setAllowedOrigins(new java.util.ArrayList<>(origins));
         
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
