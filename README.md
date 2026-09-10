@@ -1,6 +1,4 @@
 <div align="center">
-  <img src="https://via.placeholder.com/800x200?text=MediFind+Banner" alt="MediFind Banner" />
-  
   # MediFind
   
   *A comprehensive healthcare platform connecting Patients, Doctors, and Hospitals.*
