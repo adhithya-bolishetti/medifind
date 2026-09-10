@@ -1,116 +1,243 @@
-# MediFind Backend
+<div align="center">
+  <img src="https://via.placeholder.com/800x200?text=MediFind+Banner" alt="MediFind Banner" />
+  
+  # MediFind
+  
+  *A comprehensive healthcare platform connecting Patients, Doctors, and Hospitals.*
 
-MediFind is a monolithic healthcare platform built using Java 21 and Spring Boot 3.x.
+  ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+  ![Spring Boot](https://img.shields.io/badge/Spring_Boot-F2F4F9?style=for-the-badge&logo=spring-boot)
+  ![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
+  ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+  ![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)
+  ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+</div>
 
-## Architecture
+## 1. Project Overview
 
-This project is a standalone Spring Boot monolithic application. All previous microservices have been merged into a single `medifind-backend` backend.
+**MediFind** is a centralized healthcare platform that seamlessly connects Patients, Doctors, and Hospitals. It aims to make healthcare access simple, intuitive, and efficient.
 
-## Folder Structure
+### Features
+- User Authentication (JWT)
+- Patient, Doctor, and Hospital registration
+- Appointment booking
+- Hospital discovery
+- Doctor discovery
+- Emergency contacts
+- Profile management
+- Cloudinary image uploads
+
+---
+
+## 2. Tech Stack
+
+### Frontend
+- React
+- Vite
+- React Router
+- Axios
+- Context API
+
+### Backend
+- Spring Boot
+- Spring Security
+- JWT Authentication
+- Spring Data JPA
+- Hibernate
+
+### Database
+- MySQL (Aiven)
+
+### Cloud Services
+- Render (Backend)
+- Vercel (Frontend)
+- Cloudinary (Media Storage)
+
+---
+
+## 3. Project Structure
 
 ```text
 medifind/
-├── medifind-backend/   # The monolithic Spring Boot application
-├── frontend/           # React application built with Vite and Material UI
-├── database/           # Database scripts and seed data
-└── README.md
+├── frontend/                     # React application (Vite)
+│   ├── public/                   # Static assets
+│   ├── src/                      # React source code
+│   ├── package.json              # Frontend dependencies
+│   └── vite.config.js            # Vite configuration
+├── medifind-backend/             # Spring Boot monolithic application
+│   ├── src/main/java/            # Java source code
+│   ├── src/main/resources/       # Backend configuration
+│   ├── pom.xml                   # Maven dependencies
+│   └── Dockerfile                # Docker configuration
+├── database/                     # Database seed scripts
+└── README.md                     # Project documentation
 ```
 
-## Tech Stack
+---
 
-- **Java 21**
-- **Spring Boot 3.2.4**
-- **Spring Security & JWT**
-- **MySQL & Spring Data JPA**
-- **Maven**
-- **Lombok & MapStruct**
-- **Swagger / OpenAPI 3**
-- **React 19 & Vite**
-- **Material UI**
+## 4. Architecture Overview
 
-## Services & Ports Configuration
-
-| Service            | Port | Description                                      |
-|--------------------|------|--------------------------------------------------|
-| Backend (Monolith) | 8080 | Main Spring Boot Backend                         |
-| Frontend           | 5173 | React/Vite UI application                        |
-
-## Database Configuration
-
-The backend expects a MySQL database named `medifind_db`.
-Credentials and configurations can be defined via environment variables:
-- `DB_HOST` (default: `localhost`)
-- `DB_PORT` (default: `3306`)
-- `DB_NAME` (default: `medifind_db`)
-- `DB_USERNAME` (default: `root`)
-- `DB_PASSWORD` (default: `123456`)
-
-```sql
-CREATE DATABASE IF NOT EXISTS medifind_db;
+```mermaid
+graph LR
+    A[Frontend: Vercel] <-->|REST API| B(Backend: Render)
+    B <-->|JPA/Hibernate| C[(Database: Aiven MySQL)]
+    B <-->|Upload/Fetch| D[Cloudinary]
+    A <-->|Fetch Media| D
 ```
 
-## Admin Account
+---
 
-The application includes an Admin Dashboard (`/admin/dashboard`) for users with the `ADMIN` role.
+## 5. Environment Variables
 
-| Field  | Value                    |
-|--------|--------------------------|
-| Email  | `9392392909@medifind.com` |
-| Mobile | `9392392909` (login uses the `+91` country code prefix) |
-| Password | `DemoAdmin@123` (DEMO CREDENTIAL) |
+Create `.env` files based on the examples provided. **Do not expose actual secrets in your repository.**
 
-> **Note:** Admin accounts must be created in the database — the `ADMIN` role is never
-> selectable during signup. To (re)create or reset the seeded admin account, run:
->
-> ```bash
-> mysql -u root -p < database/seed-admin.sql
-> ```
+### Frontend (`frontend/.env`)
+```env
+VITE_API_BASE_URL=http://localhost:8080/api
+```
 
-## Test Accounts
+### Backend (`medifind-backend/src/main/resources/application.properties` or OS Environment Variables)
+```env
+# Database Configuration
+DB_HOST=my-aiven-host.aivencloud.com
+DB_PORT=25060
+DB_NAME=medifind_db
+DB_USERNAME=avien_user
+DB_PASSWORD=avien_password
 
-| Role    | Mobile Number | Password     | Lands on              |
-|---------|---------------|--------------|-----------------------|
-| Admin   | `9392392909`  | `DemoAdmin@123` (DEMO) | Admin Dashboard      |
-| Patient | `5555555555`  | `Test@12345` (DEMO) | Patient Dashboard     |
-| Doctor  | `4444444444`  | `Test@12345` (DEMO) | Doctor Dashboard      |
-| Hospital| `3333333333`  | `Test@12345` (DEMO) | Hospital Dashboard    |
+# JWT Security
+JWT_SECRET=your_super_secret_jwt_key_placeholder
+CORS_ALLOWED_ORIGINS=http://localhost:5173,https://medifind.vercel.app
 
-These are seed accounts used for local testing. The patient, doctor, and hospital accounts have
-completed profiles; new signups are redirected to profile creation first.
+# Cloudinary Integration
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
 
-## API Endpoints
+# Default Admin Credentials
+ADMIN_EMAIL=admin@medifind.com
+ADMIN_PASSWORD=secureAdminPassword123
+ADMIN_NAME=SuperAdmin
+```
 
-### API (Backend)
-Base URL: `http://localhost:8080/api`
+---
 
-- `POST /auth/register`: Register a new user
-- `POST /auth/login`: Authenticate and receive a JWT
-- `GET /auth/me`: Get current logged-in user details (Requires `Authorization: Bearer <token>`)
+## 6. Local Development Setup
 
-### Swagger Documentation
-Backend API Docs: `http://localhost:8080/swagger-ui.html`
+### Prerequisites
+- Node.js (v18+)
+- Java 21+
+- Maven
+- MySQL Server
 
-## How to Run
+### Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-1. **Ensure MySQL is running**
-   Create the database `medifind_db`.
+### Backend
+```bash
+cd medifind-backend
+mvn clean install
+mvn spring-boot:run
+```
 
-2. **Run Backend**
-   Navigate to the backend directory and run:
-   ```bash
-   cd medifind-backend
-   mvn spring-boot:run
-   ```
+---
 
-3. **Run Frontend**
-   ```bash
-   cd frontend
-   npm install
-   npm run dev
-   ```
+## 7. Docker Deployment
 
-Alternatively, you can run the `MediFindApplication.java` class directly from your IDE.
+To build and run the backend using Docker:
 
-## Deployment
+1. **Build the image**
+```bash
+cd medifind-backend
+docker build -t medifind-backend .
+```
 
-This application natively supports deployment to **Render**. A `render.yaml` file is provided for easy deployment using Render's Infrastructure as Code (IaC) features.
+2. **Run the container**
+```bash
+docker run -p 8080:8080 --env-file .env medifind-backend
+```
+
+---
+
+## 8. Production Deployment
+
+### Backend Deployment (Render)
+1. Connect your GitHub repository to Render.
+2. Select **Docker** deployment (or web service using Docker).
+3. Configure the environment variables (DB, JWT, Cloudinary) in the Render dashboard.
+4. Deploy the service.
+
+### Frontend Deployment (Vercel)
+1. Connect your GitHub repository to Vercel.
+2. Configure the `VITE_API_BASE_URL` environment variable to point to your Render backend URL.
+3. Deploy the project.
+
+### Database
+- Create an Aiven MySQL instance.
+- Provide the required connection details (`DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USERNAME`, `DB_PASSWORD`) to your backend deployment.
+
+---
+
+## 9. API Documentation
+
+Swagger API documentation is available when the backend is running.
+
+```text
+https://<backend-url>/swagger-ui/index.html
+```
+*(For local development: `http://localhost:8080/swagger-ui/index.html`)*
+
+---
+
+## 10. Security
+
+- **JWT Authentication:** Secure, stateless token-based authentication.
+- **Password Encryption:** Passwords are hashed and salted using BCrypt.
+- **Spring Security:** Fine-grained role-based access control.
+- **CORS Configuration:** Restricted origins to prevent Cross-Origin Request Forgery.
+
+---
+
+## 11. Screenshots
+
+> *Add application screenshots here*
+
+| Patient Dashboard | Doctor Discovery |
+| :---: | :---: |
+| ![Placeholder](https://via.placeholder.com/400x250?text=Patient+Dashboard) | ![Placeholder](https://via.placeholder.com/400x250?text=Doctor+Discovery) |
+
+| Hospital Listing | Appointment Booking |
+| :---: | :---: |
+| ![Placeholder](https://via.placeholder.com/400x250?text=Hospital+Listing) | ![Placeholder](https://via.placeholder.com/400x250?text=Appointment+Booking) |
+
+---
+
+## 12. Future Enhancements
+
+- **Medical store availability and location tracking:** Helping users find nearby pharmacies.
+- **Real-time notifications:** Alerts for appointments and emergency updates.
+- **Video consultations:** Seamless virtual meetings with doctors.
+- **AI-based hospital recommendations:** Smart suggestions based on symptoms and location.
+- **Multi-language support:** Accessibility across different regions.
+- **Analytics dashboard:** Insights for hospital administrators and doctors.
+
+---
+
+## 13. Contribution Guidelines
+
+Contributions are welcome!
+1. Fork the project.
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`).
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4. Push to the branch (`git push origin feature/AmazingFeature`).
+5. Open a Pull Request.
+
+---
+
+## 14. License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
