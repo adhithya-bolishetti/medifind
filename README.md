@@ -1,5 +1,5 @@
 <div align="center">
-  # MediFind
+  # **MediFind**
   
   *A comprehensive healthcare platform connecting Patients, Doctors, and Hospitals.*
 
