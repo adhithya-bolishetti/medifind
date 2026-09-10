@@ -202,21 +202,7 @@ https://<backend-url>/swagger-ui/index.html
 
 ---
 
-## 11. Screenshots
-
-> *Add application screenshots here*
-
-| Patient Dashboard | Doctor Discovery |
-| :---: | :---: |
-| ![Placeholder](https://via.placeholder.com/400x250?text=Patient+Dashboard) | ![Placeholder](https://via.placeholder.com/400x250?text=Doctor+Discovery) |
-
-| Hospital Listing | Appointment Booking |
-| :---: | :---: |
-| ![Placeholder](https://via.placeholder.com/400x250?text=Hospital+Listing) | ![Placeholder](https://via.placeholder.com/400x250?text=Appointment+Booking) |
-
----
-
-## 12. Future Enhancements
+## 11. Future Enhancements
 
 - **Medical store availability and location tracking:** Helping users find nearby pharmacies.
 - **Real-time notifications:** Alerts for appointments and emergency updates.
@@ -227,7 +213,7 @@ https://<backend-url>/swagger-ui/index.html
 
 ---
 
-## 13. Contribution Guidelines
+## 12. Contribution Guidelines
 
 Contributions are welcome!
 1. Fork the project.
@@ -238,6 +224,6 @@ Contributions are welcome!
 
 ---
 
-## 14. License
+## 13. License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
