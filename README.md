@@ -1,5 +1,5 @@
 <div align="center">
-  # **MediFind**
+  <h1>MediFind</h1>
   
   *A comprehensive healthcare platform connecting Patients, Doctors, and Hospitals.*
 
